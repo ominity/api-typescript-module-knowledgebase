@@ -12,6 +12,7 @@ import {
   extractSecurity,
   resolveGlobalSecurity,
 } from "@ominity/api-typescript/lib/security";
+
 import * as errors from "@ominity/api-typescript/models/errors";
 import { ResponseValidationError } from "@ominity/api-typescript/models/errors/response-validation-error";
 import { SDKValidationError } from "@ominity/api-typescript/models/errors/sdk-validation-error";
@@ -22,18 +23,29 @@ import {
   RequestTimeoutError,
   UnexpectedClientError,
 } from "@ominity/api-typescript/models/errors/http-client-errors";
-import * as operations from "../../models/operations/index.js";
-import { BookingEvent$inboundSchema } from "../../models/bookings/event.js";
+import {
+  KnowledgebaseEvent$inboundSchema,
+} from "../../models/knowledgebase/event.js";
+import {
+  GetEventRequest,
+  GetEventRequest$outboundSchema,
+} from "../../models/operations/knowledgebase-events.js";
 import { APICall, APIPromise } from "@ominity/api-typescript/types/async";
 import { Result } from "@ominity/api-typescript/types/fp";
+import { KnowledgebaseEvent } from "../../models/knowledgebase/event.js";
 
+/**
+ * Get a specific event.
+ */
 export function eventsGet(
   client: ClientSDK,
-  request: operations.GetEventRequest,
+  request: GetEventRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetEventResponse,
+    KnowledgebaseEvent,
+    | SDKValidationError
+    | UnexpectedClientError
     | errors.ErrorResponse
     | errors.OminityDefaultError
     | ResponseValidationError
@@ -41,8 +53,6 @@ export function eventsGet(
     | RequestAbortedError
     | RequestTimeoutError
     | InvalidRequestError
-    | UnexpectedClientError
-    | SDKValidationError
   >
 > {
   return new APIPromise($do(
@@ -54,12 +64,12 @@ export function eventsGet(
 
 async function $do(
   client: ClientSDK,
-  request: operations.GetEventRequest,
+  request: GetEventRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetEventResponse,
+      KnowledgebaseEvent,
       | errors.ErrorResponse
       | errors.OminityDefaultError
       | ResponseValidationError
@@ -75,7 +85,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.GetEventRequest$outboundSchema.parse(value),
+    (value) => GetEventRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -84,7 +94,7 @@ async function $do(
   const payload = parsed.value;
   const body = null;
 
-  const path = `/modules/bookings/events/${payload.id}`;
+  const path = `/modules/knowledgebase/events/${payload.id}`;
 
   const query = encodeFormQuery({
     include: payload.include,
@@ -100,22 +110,22 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "modules.bookings.events.get",
+    operationID: "modules.knowledgebase.events.get",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
     securitySource: client._options.security,
     retryConfig: options?.retries
       || client._options.retryConfig
       || {
-        strategy: "backoff",
-        backoff: {
-          initialInterval: 500,
-          maxInterval: 5000,
-          exponent: 2,
-          maxElapsedTime: 7500,
-        },
-        retryConnectionErrors: true,
-      }
+      strategy: "backoff",
+      backoff: {
+        initialInterval: 500,
+        maxInterval: 5000,
+        exponent: 2,
+        maxElapsedTime: 7500,
+      },
+      retryConnectionErrors: true,
+    }
       || { strategy: "none" },
     retryCodes: options?.retryCodes || ["5xx"],
   };
@@ -152,7 +162,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetEventResponse,
+    KnowledgebaseEvent,
     | errors.ErrorResponse
     | errors.OminityDefaultError
     | ResponseValidationError
@@ -163,7 +173,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, BookingEvent$inboundSchema, {
+    M.json(200, KnowledgebaseEvent$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.jsonErr("4XX", errors.ErrorResponse$inboundSchema, {

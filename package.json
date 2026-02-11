@@ -1,12 +1,12 @@
 {
-  "name": "@ominity/api-modules-template",
+  "name": "@ominity/api-module-knowledgebase",
   "version": "0.0.0",
   "private": true,
   "author": "Ominity",
   "type": "module",
   "tshy": {
     "sourceDialects": [
-      "@ominity/api-modules-template/source"
+      "@ominity/api-module-knowledgebase/source"
     ],
     "exports": {
       ".": "./src/index.ts",
@@ -43,7 +43,7 @@
   "exports": {
     ".": {
       "import": {
-        "@ominity/api-modules-template/source": "./src/index.ts",
+        "@ominity/api-module-knowledgebase/source": "./src/index.ts",
         "types": "./dist/esm/index.d.ts",
         "default": "./dist/esm/index.js"
       },
@@ -55,7 +55,7 @@
     "./package.json": "./package.json",
     "./models": {
       "import": {
-        "@ominity/api-modules-template/source": "./src/models/index.ts",
+        "@ominity/api-module-knowledgebase/source": "./src/models/index.ts",
         "types": "./dist/esm/models/index.d.ts",
         "default": "./dist/esm/models/index.js"
       },
@@ -66,7 +66,7 @@
     },
     "./models/operations": {
       "import": {
-        "@ominity/api-modules-template/source": "./src/models/operations/index.ts",
+        "@ominity/api-module-knowledgebase/source": "./src/models/operations/index.ts",
         "types": "./dist/esm/models/operations/index.d.ts",
         "default": "./dist/esm/models/operations/index.js"
       },
@@ -77,7 +77,7 @@
     },
     "./sdk": {
       "import": {
-        "@ominity/api-modules-template/source": "./src/sdk/index.ts",
+        "@ominity/api-module-knowledgebase/source": "./src/sdk/index.ts",
         "types": "./dist/esm/sdk/index.d.ts",
         "default": "./dist/esm/sdk/index.js"
       },
@@ -88,7 +88,7 @@
     },
     "./funcs": {
       "import": {
-        "@ominity/api-modules-template/source": "./src/funcs/index.ts",
+        "@ominity/api-module-knowledgebase/source": "./src/funcs/index.ts",
         "types": "./dist/esm/funcs/index.d.ts",
         "default": "./dist/esm/funcs/index.js"
       },
@@ -99,7 +99,7 @@
     },
     "./*.js": {
       "import": {
-        "@ominity/api-modules-template/source": "./src/*.ts",
+        "@ominity/api-module-knowledgebase/source": "./src/*.ts",
         "types": "./dist/esm/*.d.ts",
         "default": "./dist/esm/*.js"
       },
@@ -110,7 +110,7 @@
     },
     "./*": {
       "import": {
-        "@ominity/api-modules-template/source": "./src/*.ts",
+        "@ominity/api-module-knowledgebase/source": "./src/*.ts",
         "types": "./dist/esm/*.d.ts",
         "default": "./dist/esm/*.js"
       },

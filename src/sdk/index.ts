@@ -1,36 +1,36 @@
 /*
  * Module entrypoint.
  *
- * Rename "bookings" and types for your module.
+ * Rename "knowledgebase" and types for your module.
  */
 
 import type {
   Ominity,
   OminityModuleDefinition,
 } from "@ominity/api-typescript";
-import { Bookings } from "./bookings/index.js";
+import { Knowledgebase } from "./knowledgebase/index.js";
 
-export { Bookings } from "./bookings/index.js";
+export { Knowledgebase } from "./knowledgebase/index.js";
 
-export type BookingsModule = Bookings;
+export type KnowledgebaseModule = Knowledgebase;
 
-export function bookingsModule(): OminityModuleDefinition<
+export function knowledgebaseModule(): OminityModuleDefinition<
   Ominity,
-  "bookings",
-  Bookings
+  "knowledgebase",
+  Knowledgebase
 > {
   return {
-    name: "bookings",
+    name: "knowledgebase",
     init(client: Ominity) {
-      return new Bookings(client._options);
+      return new Knowledgebase(client._options);
     },
   };
 }
 
-export const BookingsModule = bookingsModule();
+export const KnowledgebaseModule = knowledgebaseModule();
 
 declare module "@ominity/api-typescript" {
   interface OminityModules {
-    bookings: Bookings;
+    knowledgebase: Knowledgebase;
   }
 }

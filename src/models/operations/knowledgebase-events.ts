@@ -1,14 +1,14 @@
 /*
- * Bookings events operations.
+ * Knowledgebase events operations.
  *
  * Rename these types and fields for your module.
  */
 
 import * as z from "zod/v4";
 import {
-  BookingEvent,
-  BookingEventsListResponse,
-} from "../bookings/event.js";
+  KnowledgebaseEvent,
+  KnowledgebaseEventsListResponse,
+} from "../knowledgebase/event.js";
 
 export type EventsListParams = {
   page?: number | undefined;
@@ -23,13 +23,13 @@ export type EventGetParams = {
 };
 
 export type ListEventsRequest = EventsListParams;
-export type ListEventsResponse = BookingEventsListResponse;
+export type ListEventsResponse = KnowledgebaseEventsListResponse;
 
 export type GetEventRequest = EventGetParams & {
   id: number | string;
 };
 
-export type GetEventResponse = BookingEvent;
+export type GetEventResponse = KnowledgebaseEvent;
 
 /** @internal */
 export const EventsListParams$outboundSchema: z.ZodType<EventsListParams> = z

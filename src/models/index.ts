@@ -1,1 +1,1 @@
-export * from "./bookings/index.js";
+export * from "./knowledgebase/index.js";

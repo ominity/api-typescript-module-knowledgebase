@@ -27,14 +27,23 @@ import {
   UnexpectedClientError,
 } from "@ominity/api-typescript/models/errors/http-client-errors";
 import * as operations from "../../models/operations/index.js";
-import { BookingEventsListResponse$inboundSchema } from "../../models/bookings/event.js";
+import {
+  KnowledgebaseEventsListResponse$inboundSchema,
+} from "../../models/knowledgebase/event.js";
+import {
+  EventsListParams,
+} from "../../models/operations/knowledgebase-events.js";
 import { applyPaginationParams } from "@ominity/api-typescript/models/pagination";
 import { APICall, APIPromise } from "@ominity/api-typescript/types/async";
-import { OK, Result } from "@ominity/api-typescript/types/fp";
+import { Result } from "@ominity/api-typescript/types/fp";
+
+function OK<T>(value: T): Result<T, never> {
+  return { ok: true, value };
+}
 
 export function eventsList(
   client: ClientSDK,
-  request?: operations.EventsListParams | undefined,
+  request?: EventsListParams | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -90,7 +99,7 @@ async function $do(
   const payload = parsed.value;
   const body = null;
 
-  const path = "/modules/bookings/events";
+  const path = "/modules/knowledgebase/events";
 
   const baseQuery = encodeFormQuery({
     page: payload?.page,
@@ -122,22 +131,22 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "modules.bookings.events.list",
+    operationID: "modules.knowledgebase.events.list",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
     securitySource: client._options.security,
     retryConfig: options?.retries
       || client._options.retryConfig
       || {
-        strategy: "backoff",
-        backoff: {
-          initialInterval: 500,
-          maxInterval: 5000,
-          exponent: 2,
-          maxElapsedTime: 7500,
-        },
-        retryConnectionErrors: true,
-      }
+      strategy: "backoff",
+      backoff: {
+        initialInterval: 500,
+        maxInterval: 5000,
+        exponent: 2,
+        maxElapsedTime: 7500,
+      },
+      retryConnectionErrors: true,
+    }
       || { strategy: "none" },
     retryCodes: options?.retryCodes || ["5xx"],
   };
@@ -185,7 +194,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, BookingEventsListResponse$inboundSchema, {
+    M.json(200, KnowledgebaseEventsListResponse$inboundSchema, {
       ctype: "application/hal+json",
     }),
     M.jsonErr("4XX", errors.ErrorResponse$inboundSchema, {

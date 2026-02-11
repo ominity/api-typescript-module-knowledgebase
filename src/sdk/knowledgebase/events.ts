@@ -1,12 +1,12 @@
 /*
- * Bookings events SDK.
+ * Knowledgebase events SDK.
  */
 
 import { ClientSDK, RequestOptions } from "@ominity/api-typescript/lib/sdks";
 import { unwrapAsync } from "@ominity/api-typescript/types/fp";
 import * as operations from "../../models/operations/index.js";
-import { eventsGet } from "../../funcs/bookings/eventsGet.js";
-import { eventsList } from "../../funcs/bookings/eventsList.js";
+import { eventsGet } from "../../funcs/knowledgebase/eventsGet.js";
+import { eventsList } from "../../funcs/knowledgebase/eventsList.js";
 
 export class Events extends ClientSDK {
   async list(
